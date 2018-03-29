@@ -51,7 +51,7 @@ For [66-116]:
 ------------------------------------------------------------  
 For [116-150]:  
 **Choice 1**: Extended 8 TeV bins  
-**pt_bins** = [_tofill_]  
+**pt_bins** = [10, 13, 16, 20, 25, 30, 37, 45, 55, 65, 75, 85, 105, 150, 200, 900, 2000, 5000, 13000]  
 ![](https://github.com/juanrojochacon/HLLHCPDFs/blob/master/ATLASZPT8TEV/m116_150GeV/extendedBinning8TeV.png)  
 **Choice 2**: equal width in log(pT)  
 **pt_bins** = [10, 17.7828, 31.6228, 56.2341, 100, 177.828, 316.228, 562.341, 1000, 1778.28, 3162.28, 5623.41, 10000, 17782.8]  
