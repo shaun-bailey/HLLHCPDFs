@@ -1,6 +1,6 @@
 # Measurement of the transverse momentum and phi distributions of Drell–Yan lepton pairs in proton–proton collisions at 8 TeV with the ATLAS detector  
 
-## Reference (arxiv): 1512.02192  
+#### Reference (arxiv): 1512.02192  
 
 ## ATLAS ZpT  
   
