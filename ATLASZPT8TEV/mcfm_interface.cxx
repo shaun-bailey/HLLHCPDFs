@@ -23,11 +23,11 @@
 
 #include "mcfm_grid.h"
 
-bool file_exists( const std::string& filename ) {
+/*bool file_exists( TString filename ) {
   struct stat sb;
   if ( stat( filename.c_str(), &sb)==0 ) return true; // && S_ISREG(sb.st_mode ))
   else return false;
-}
+}*/
 
 static const int mxpart = 14;    // mcfm parameter : max number of partons in event record.
                                  // Defined in Inc/constants.f
@@ -37,7 +37,7 @@ static       int  Ngrids = 1;
 appl::mcfm_grid* mygrid[_Ngrids];
 
 // The below line (and others where values are assigned to this variable) changed to compile without err
-static       char *gridFiles[_Ngrids];
+TSring gridFiles[_Ngrids];
 
 static       double Observable[_Ngrids];
 int                 nObsBins[_Ngrids];
@@ -125,8 +125,8 @@ int                 nObsBins[_Ngrids];
 
    // Initialise the array of gridFiles
 
-   for(int c = 0; c < _Ngrids; c++)
-   {  gridFiles[c]=(char*)malloc(80*sizeof(char)); gridFiles[c][0]=" "; }
+   //for(int c = 0; c < _Ngrids; c++)
+   //{  gridFiles[c]=(char*)malloc(80*sizeof(char)); gridFiles[c][0]=" "; }
 
    // number of observables and binning for observables
    const double *obsBins[_Ngrids] = { pt };
@@ -152,13 +152,13 @@ int                 nObsBins[_Ngrids];
 
       Ngrids=7;//Ngrids  = 3;
 
-      strcpy(gridFiles[0],"_pt34_1.root");
-      strcpy(gridFiles[1],"_pt34_2.root");
-      strcpy(gridFiles[2],"_pt34_3.root");
-      strcpy(gridFiles[3],"_pt34_4.root");
-      strcpy(gridFiles[4],"_pt34_5.root");
-      strcpy(gridFiles[5],"_pt34_6.root");
-      strcpy(gridFiles[6],"_m34.root");
+      gridFiles[0]="_pt34_1.root";
+      gridFiles[1]="_pt34_2.root";
+      gridFiles[2]="_pt34_3.root";
+      gridFiles[3]="_pt34_4.root";
+      gridFiles[4]="_pt34_5.root";
+      gridFiles[5]="_pt34_6.root";
+      gridFiles[6]="_m34.root";
 
       nObsBins[0] = 18;
       nObsBins[1] = 6;
@@ -202,11 +202,11 @@ int                 nObsBins[_Ngrids];
       bool create_new = false;
 
       // if the file does not exist, create a new grid...
-      if ( !file_exists(glabel+gridFiles[igrid]) )  create_new = true;
+      //if ( !file_exists(glabel+gridFiles[igrid]) )  create_new = true;
 
       // or if it does exists but root file is a zombie...
       if ( !create_new ) {
-	TFile testFile( (glabel+gridFiles[igrid]).c_str() );
+	TFile testFile( glabel+gridFiles[igrid] );
 	if ( testFile.IsZombie() ) create_new = true;
 	testFile.Close();
       }
