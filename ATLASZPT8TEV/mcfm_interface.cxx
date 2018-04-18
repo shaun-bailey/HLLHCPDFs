@@ -23,11 +23,12 @@
 
 #include "mcfm_grid.h"
 
-/*bool file_exists( TString filename ) {
+bool file_exists( TString f ) {
+  std::string filename=(std::string)f;
   struct stat sb;
   if ( stat( filename.c_str(), &sb)==0 ) return true; // && S_ISREG(sb.st_mode ))
   else return false;
-}*/
+}
 
 static const int mxpart = 14;    // mcfm parameter : max number of partons in event record.
                                  // Defined in Inc/constants.f
@@ -37,7 +38,7 @@ static       int  Ngrids = 1;
 appl::mcfm_grid* mygrid[_Ngrids];
 
 // The below line (and others where values are assigned to this variable) changed to compile without err
-TSring gridFiles[_Ngrids];
+TString gridFiles[_Ngrids];
 
 static       double Observable[_Ngrids];
 int                 nObsBins[_Ngrids];
@@ -135,7 +136,7 @@ int                 nObsBins[_Ngrids];
 
    glabel = "grid-40/6-15/3";
 
-   TString DatasetID = "DatasetID";
+   TString DatasetID = (TString)std::getenv("DatasetID");
    if ( DatasetID && DatasetID!="" ) glabel = DatasetID;
    std::cout << "Dataset ID: " << DatasetID << std::endl;
   //  std::cout << "q2low " << q2lower << "\tq2up " << q2upper << std::endl;
@@ -202,7 +203,7 @@ int                 nObsBins[_Ngrids];
       bool create_new = false;
 
       // if the file does not exist, create a new grid...
-      //if ( !file_exists(glabel+gridFiles[igrid]) )  create_new = true;
+      if ( !file_exists(glabel+gridFiles[igrid]) )  create_new = true;
 
       // or if it does exists but root file is a zombie...
       if ( !create_new ) {
@@ -225,7 +226,7 @@ int                 nObsBins[_Ngrids];
 	  mygrid[igrid] = new appl::mcfm_grid( nObsBins[igrid], obsBins[igrid],      // obs bins
 					       nQ2bins, q2Low, q2Up, qorder,         // Q2 bins and interpolation order
 					       nXbins,   xLow,  xUp, xorder,         // x bins and interpolation order
-					       pdf_function, lowest_order, nloops );
+					       (std::string)pdf_function, lowest_order, nloops );
 	  /// try reweighting for a bit
 	  mygrid[igrid]->reweight(true);
 	  mygrid[igrid]->setCMSScale( energy_.sqrts );
@@ -247,7 +248,7 @@ int                 nObsBins[_Ngrids];
 	{
 	  std::cout << "Using existing grid file " << (glabel+gridFiles[igrid]) << std::endl;
 
-	  mygrid[igrid] = new appl::mcfm_grid(glabel+gridFiles[igrid]); //optimise grid x,Q2 bins
+	  mygrid[igrid] = new appl::mcfm_grid((std::string)(glabel+gridFiles[igrid])); //optimise grid x,Q2 bins
 	  //       grid_.nSubProcess = mygrid[igrid]->subProcesses();
 	  mygrid[igrid]->getReference()->Reset();
 	  mygrid[igrid]->optimise(nQ2bins, nXbins);
@@ -352,15 +353,15 @@ void write_grid(double& xstotal)   // writes out grid after some events
 
 	std::cout << "appl::grid::Write() " << newpdfname << std::endl;
 
-	mygrid[igrid]->Write( filename, "grid", newpdfname );
+	mygrid[igrid]->Write( (std::string)filename, "grid", newpdfname );
       }
       else {
-	mygrid[igrid]->Write( glabel+gridFiles[igrid] );
+	mygrid[igrid]->Write( (std::string)glabel+(std::string)gridFiles[igrid] );
       }
 
 #else
 
-      mygrid[igrid]->Write( filename );
+      mygrid[igrid]->Write( (std::string)filename );
 
 #endif
 
