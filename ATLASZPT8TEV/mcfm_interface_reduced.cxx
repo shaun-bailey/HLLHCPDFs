@@ -87,7 +87,7 @@ int                 nObsBins[_Ngrids];
 
  long unsigned int runs  =  0;
  bool isBooked           =  false;
- TString glabel      =  "";
+ std::string glabel      =  "";
 
  void getObservable( const double evt[][mxpart] );
 
@@ -131,12 +131,12 @@ int                 nObsBins[_Ngrids];
    // number of observables and binning for observables
    const double *obsBins[_Ngrids] = { pt };
 
-   TString pdf_function;
+   std::string pdf_function;
 
    glabel = "grid-40/6-15/3";
 
-   TString DatasetID = "DatasetID";
-   if ( DatasetID && DatasetID!="" ) glabel = DatasetID;
+   const char* DatasetID = std::getenv("DatasetID");
+   if ( DatasetID && std::string(DatasetID)!="" ) glabel = DatasetID;
    std::cout << "Dataset ID: " << DatasetID << std::endl;
   //  std::cout << "q2low " << q2lower << "\tq2up " << q2upper << std::endl;
   //  std::cout << "Process : " << nproc_.nproc << std::endl;
@@ -336,7 +336,7 @@ void write_grid(double& xstotal)   // writes out grid after some events
       /// scaled it up ...
       //      mygrid[igrid]->getReference()->Scale( 1/mygrid[igrid]->run() );
 
-      TString filename = glabel+gridFiles[igrid];
+      std::string filename = glabel+gridFiles[igrid];
 
 #if 0
 
