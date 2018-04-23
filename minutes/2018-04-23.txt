@@ -1,0 +1,62 @@
+**********************************
+  PDF studies at the HL-LHC
+  Meeting 2018/04/23
+**********************************
+
+* Agreed to generate all applgrids at 14 TeV, which is the center of
+mass energy used for the Yellow Report studies
+
+* Agreed to put in the github repo the MCFM input cards used to
+generate the applgrids for the different processes, to make sure that
+we all use common settings
+
+* ttbar => applgrids generated at NLO using MCFM
+Using a fine binning, can be changed later if needed
+
+* We might also want to look at double differential distributions
+in the case of top quark pair production. Katerina will provide some preliminary
+binning to use in our studies.
+
+* The value of the top quark mass used is 173.2 GeV, but this should not
+affect the fit results since we are using pseudo-data
+
+* High mass Drell-Yan => Grids available for 8 TeV and 13 TeV,
+will not be recomputed for 14 TeV
+The applgrids correspond to the double differential distributions
+in Mll and yll. Other distributions are less relevant in this context
+(ie the Delta y_ll distribution was originally used for photon PDF studies)
+
+* We agreed to produce for each process a bunch of validation plots, showing
+the kinematical coverage of the pseudo-data that we have produced and
+the expected statistical uncertainty per bin.
+
+* When producing cross-section plots (and PDF uncertainty plots)
+we will use the PDF4LHC15 NNLO set/
+
+* Z pT => Set up is ready to produce applgrids at 14 TeV but
+there are still some technical issues to be overcome in the next days
+
+* Concerning the systematic errors, Katerina will investigate within CMS
+how existing measurements can be extrapolated to the HL-LHC. We will also
+need to hear from ATLAS and LHCb.
+
+* In order to estimate the impact of the HL-LHC pseudo-data we will use Hessian profiling
+applied to the PDF4LHC15 NNLO set.
+
+* This can be achieved for example using the ePump package, which is basically
+a Hessian profiling method with different choices of chi2 tolerance possible.
+
+* At the end of the day we really want to carry out a full fit
+(or three of them, to be more precise, and then combine them a la PDF4LHC), since
+approximate methods like profiling/reweighting might fail once we add a lot
+of different experiments.
+
+* But to bencharmk the addition of individual processes and to understand
+their impact on the PDFs, the use of profiling is reasonable
+
+****************************************************************************
+****************************************************************************
+
+
+
+
